@@ -1,0 +1,33 @@
+# --------------------------------------------------------------------
+BIN     = bbMLpe.exe
+OBJS    = bbMLpe.o
+
+DEFINES = -DPOS_LIMIT_SIZE=0x562 -DPOS_INTERVAL_TIME=0x4f7
+
+all: $(BIN)
+
+bbMLpe.o: \
+	bbMLpe.cpp \
+	bbMLpe.h
+
+clean:
+	rm -f $(OBJS) $(BIN)
+
+# --------------------------------------------------------------------
+CC     = gcc
+CPP    = g++
+CFLAGS = -c -Os $(DEFINES)
+LIBS   = -lgdi32
+LOPTS  = -mwindows -s
+
+$(BIN): $(OBJS)
+	$(CC) -o $(BIN) $(OBJS) $(LIBS) $(LOPTS)
+
+# --------------------------------------------------------------------
+.SUFFIXES: .c .o
+.c.o:
+	$(CC) $(CFLAGS) $< -o $@
+
+.SUFFIXES: .cpp .o
+.cpp.o:
+	$(CPP) $(CFLAGS) $< -o $@

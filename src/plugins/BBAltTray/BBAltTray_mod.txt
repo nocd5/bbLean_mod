@@ -1,0 +1,33 @@
+Bro@m
+=====
+  @BBAltTray.Show : show BBAltTray window
+  ※オリジナルのBBAltTrayと異なり、Bro@mは上記の１つだけです。
+
+キーマップ
+==========
+  Down                   : 'j' , <DOWN>
+  Up                     : 'k' , <UP>
+  Send LeftClick         : 'h' , <LEFT>    , <RETURN>   , <SPACE>
+  Send LeftDoubleClick   : 'H' , <S-LEFT>  , <S-RETURN> , <S-SPACE>
+  Send RightClick        : 'l' , <RIGHT>   , <APPS>
+  Send RightDoubleClick  : 'L' , <S-RIGHT> , <S-APPS>
+  Send MiddleClick       : 'm'
+  Send MiddleDoubleClick : 'M'
+  Quit                   : 'q' , <ESCAPE>  , <DELETE>
+
+GUI設定
+=======
+  次項の"追加設定"を除いて
+  オリジナルのBBAltTrayと共通です。
+
+追加設定
+========
+  BBAltTray.alpha_enable: <true/false>
+  BBAltTray.alpha_value: <0-255>
+
+その他
+======
+  BBAltTray modはBBAltTray(kana作)を
+  nocd5が勝手に改造したものです。
+  本プラグインの不具合・質問等はnocd5にお願いします。
+

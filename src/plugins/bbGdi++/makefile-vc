@@ -1,0 +1,34 @@
+# --------------------------------------------------------------------
+BIN     = bbGdi++.dll
+OBJS    = bbGdi++.obj
+
+DEFINES =
+
+all: $(BIN)
+
+bbGdi++.obj: \
+	bbGdi++.cpp \
+	bbGdi++.h
+
+clean:
+	rm -f $(OBJS) $(BIN) \
+		$(BIN:.dll=.lib) $(BIN:.dll=.exp)
+
+# --------------------------------------------------------------------
+CC     = cl
+CPP    = cl
+CFLAGS = -nologo -c -O2 -GL -GS- -GR- $(DEFINES)
+LIBS   = kernel32.lib user32.lib
+LOPTS  = -LD -link -LTCG -NODEFAULTLIB -ENTRY:DllMainCRTStartup@12 -merge:.rdata=.text
+
+$(BIN): $(OBJS)
+	$(CC) -Fe$(BIN) $(OBJS) $(LIBS) $(LOPTS)
+
+# --------------------------------------------------------------------
+.SUFFIXES: .c .obj
+.c.obj:
+	$(CC) $(CFLAGS) $< -Fo$@
+
+.SUFFIXES: .cpp .obj
+.cpp.obj:
+	$(CPP) $(CFLAGS) $< -Fo$@

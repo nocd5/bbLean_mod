@@ -1,0 +1,69 @@
+# --------------------------------------------------------------------
+# makefile for bbMacType - gcc (mingw)
+
+# Compile:
+#   you may want to change INST below
+#   make -f makefile-gcc
+
+# Versions:
+#   gcc-3.4.2
+#   binutils-2.15.90
+#   mingw-runtime-3.7
+#   w32api-3.2
+
+OBJ     = bbMacType.o
+BIN     = bbMacType.dll
+
+# INST    = c:\bblean\plugins\bbMacType
+
+BBAPI   =
+BBLIB   =
+
+ifdef INSTDIR
+all: $(INST)/$(BIN)
+else
+all: $(BIN)
+endif
+
+bbMacType.o: \
+	bbMacType.cpp
+
+clean:
+	rm -f $(OBJ) $(BIN)
+
+$(INST)/$(BIN): $(BIN)
+	copy $(BIN) $(INST)
+
+$(BBLIB): $(BBAPI)/libBlackbox.def
+	dlltool -d $< -l $@ -D blackbox.exe
+
+# --------------------------------------------------------------------
+CC      = gcc
+WINDRES = windres.exe -J rc -O coff --include-dir $(<D)
+
+CFLAGS  = -Os -Wall \
+          -fno-rtti \
+          -fno-exceptions \
+          -fomit-frame-pointer \
+          -c $(DEFINES)
+
+LIBS = -nostdlib -luser32 -lkernel32 -lmsvcrt
+
+LINKEROPT = -Wl,--entry,_DllMainCRTStartup,--enable-stdcall-fixup
+
+$(BIN): $(OBJ) $(BBLIB) makefile-gcc
+	$(CC) -mwindows -shared -s -o $(BIN) $(OBJ) $(LIBS) $(LINKEROPT)
+
+# --------------------------------------------------------------------
+
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+%.res: %.rc
+	$(WINDRES) -i $< -o $@
+
+# --------------------------------------------------------------------
+

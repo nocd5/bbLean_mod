@@ -1,0 +1,4 @@
+BBAltTray.base_padding: 2 2 2 2
+# BBAltTray.icon_size: 16
+BBAltTray.alpha_enable: true
+BBAltTray.alpha_value: 240
